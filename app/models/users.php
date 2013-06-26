@@ -32,4 +32,22 @@ class Users extends AppModel
             array($this->username, md5($this->password))
         );
     }
+
+    public function isExisting()
+    {
+        $this->validate();
+
+        if(!empty($user->validation_errors['username']['length']) ||
+                !empty($user->validation_errors['password']['length'])
+        ) {
+            throw new ValidationException('invalid username or password');
+        }
+
+        $db = DB::conn();
+        $user = $db->row('SELECT * FROM user WHERE username = ? AND password = ?',
+            array($this->username, md5($this->password))
+        );
+
+        return $user;
+    }
 }

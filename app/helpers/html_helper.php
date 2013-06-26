@@ -12,3 +12,10 @@ function readable_text($s)
     $s = nl2br($s);
     return $s;
 }
+
+function clean($s)
+{
+    $s = trim($s);
+    $s = strip_tags($s);
+    return $s;
+}
