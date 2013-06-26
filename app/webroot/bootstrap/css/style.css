@@ -1,0 +1,16 @@
+.comment {
+    border: 1px solid #DDD;
+    margin: 10px 0;
+    box-shadow: 0 0 5px rgba(5,5,5,0.2);
+}
+
+.meta {
+    background: #EEE;
+    padding: 5px 10px;
+    border-bottom: 1px solid #DDD;
+    font-weight: bold;
+}
+
+.detail {
+    margin: 5px 10px;
+}
