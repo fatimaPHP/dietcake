@@ -3,7 +3,10 @@
 <?php foreach($comments as $k => $v): ?>
 <div class="comment">
     <div class="meta">
-    <?php eh($v->id) ?>: <span class="text-info"><?php eh($v->username) ?></span> <?php eh($v->created) ?>
+    <span class="icon-comment"></span> <span class="text-info"><?php eh($v->username) ?></span>
+        <div class="pull-right">
+            #<?php eh($v->id) ?> | <?php eh($v->created) ?>
+        </div>
     </div>
     <div class="detail">
     <?php echo readable_text($v->body) ?>
@@ -29,10 +32,8 @@
 <hr />
 
 <form class="well" method="post" action="<?php eh(url('thread/write')) ?>">
-    <label>Your Name</label>
-    <input type="text" class="span2" name="username" value="<?php eh(Param::get('username')) ?>">
     <label>Comment</label>
-    <textarea name="body"><?php eh(Param::get('body')) ?></textarea>
+    <textarea name="body" class="input-block-level"><?php eh(Param::get('body')) ?></textarea>
     <br />
     <input type="hidden" name="thread_id" value="<?php eh($thread->id) ?>" />
     <input type="hidden" name="page_next" value="write_end" />

@@ -1,8 +1,18 @@
 <?php
 class ThreadController extends AppController
 {
+    public function __construct()
+    {
+        parent::__construct('thread');
+        session_start();
+    }
+
     public function index()
     {
+        if(!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+            redirect(url('users/login'));
+        }
+
         $threads = Thread::getAll();
 
         $this->set(get_defined_vars());
@@ -10,6 +20,10 @@ class ThreadController extends AppController
 
     public function view()
     {
+        if(!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+            redirect(url('users/login'));
+        }
+
         $default_page = 1;
         $items_per_page = 5;
         $default_size = 1;
@@ -35,6 +49,10 @@ class ThreadController extends AppController
 
     public function create()
     {
+        if(!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+            redirect(url('users/login'));
+        }
+
         $thread = new Thread;
         $comment = new Comment;
         $page = Param::get('page_next','create');
@@ -44,7 +62,7 @@ class ThreadController extends AppController
                 break;
             case 'create_end':
                 $thread->title = clean(Param::get('title'));
-                $comment->username = clean(Param::get('username'));
+                $comment->username = session('user');
                 $comment->body = clean(Param::get('body'));
                 try {
                     $thread->create($comment);
@@ -70,7 +88,7 @@ class ThreadController extends AppController
             case 'write':
                 break;
             case 'write_end':
-                $comment->username = clean(Param::get('username'));
+                $comment->username = session('user');
                 $comment->body = clean(Param::get('body'));
                 try {
                     $thread->write($comment);

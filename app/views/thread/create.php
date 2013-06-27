@@ -6,30 +6,16 @@
     <?php if(!empty($thread->validation_errors['title']['length'])): ?>
     <div>
         <strong><em>Title</em></strong> must be between
-        <?php eh($thread->validation['title']['length'][1]) ?>
-        and
-        <?php eh($thread->validation['title']['length'][2]) ?>
-        characters in length
-    </div>
-    <?php endif; ?>
-
-    <?php if(!empty($comment->validation_errors['username']['length'])): ?>
-    <div>
-        <strong><em>Your name</em></strong> must be between
-        <?php eh($comment->validation['username']['length'][1]) ?>
-        and
-        <?php eh($comment->validation['username']['length'][2]) ?>
-        characters in length
+        <?php eh($thread->validation['title']['length'][1]) ?> and
+        <?php eh($thread->validation['title']['length'][2]) ?> characters in length
     </div>
     <?php endif; ?>
 
     <?php if(!empty($comment->validation_errors['body']['length'])): ?>
     <div>
         <strong><em>Comment</em></strong> must be between
-        <?php eh($comment->validation['body']['length'][1]) ?>
-        and
-        <?php eh($comment->validation['body']['length'][2]) ?>
-        characters in length
+        <?php eh($comment->validation['body']['length'][1]) ?> and
+        <?php eh($comment->validation['body']['length'][2]) ?> characters in length
     </div>
     <?php endif; ?>
 </div>
@@ -38,10 +24,8 @@
 <form class="well" method="post" action="<?php eh(url('')) ?>">
     <label>Title</label>
     <input type="text" name="title" value="<?php eh(Param::get('title')) ?>" />
-    <label>Your Name</label>
-    <input type="text" name="username" value="<?php eh(Param::get('username')) ?>" />
     <label>Comment</label>
-    <textarea name="body"><?php eh(Param::get('body')) ?></textarea>
+    <textarea name="body" class="input-block-level"><?php eh(Param::get('body')) ?></textarea>
     <br />
     <input type="hidden" name="page_next" value="create_end" />
     <button type="submit" class="btn btn-primary">Submit</button>

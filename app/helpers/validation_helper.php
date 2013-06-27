@@ -2,8 +2,8 @@
 
 function validate_between($check, $min, $max)
 {
-    $n = mb_strlen($check);
-    return $min <= $n && $n <= $max;
+    $len = mb_strlen(clean($check));
+    return $min <= $len && $len <= $max;
 }
 
 function is_unique($name, $field, $table)

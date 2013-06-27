@@ -20,9 +20,19 @@
         <div class="container">
           <a class="brand" href="<?php eh(APP_URL) ?>">DC Board</a>
           <div class="pull-right">
-              <a class="btn btn-inverse" href="<?php eh(url('users/create')) ?>">
-                  <span class="icon-white icon-user"></span> Create an Account
+              <?php if(!isset($_SESSION['login']) || $_SESSION['login'] !== true): ?>
+              <a class="btn btn-info" href="<?php eh(url('users/login')) ?>">
+                  <span class="icon-white icon-lock"></span> Login
               </a>
+
+              <a class="btn btn-danger" href="<?php eh(url('users/register')) ?>">
+                  <span class="icon-white icon-user"></span> Register
+              </a>
+              <?php else: ?>
+              <a class="btn btn-danger" href="<?php eh(url('users/logout')) ?>">
+                  <span class="icon-white icon-user"></span> Logout
+              </a>
+              <?php endif; ?>
           </div>
         </div>
       </div>

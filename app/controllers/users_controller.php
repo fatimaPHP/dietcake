@@ -2,22 +2,32 @@
 
 class UsersController extends AppController
 {
-    public function create()
+    public function __construct()
     {
+        parent::__construct('users');
+        session_start();
+    }
+
+    public function register()
+    {
+        if(isset($_SESSION['login']) && $_SESSION['login'] === true) {
+            redirect(url('/'));
+        }
+
         $user = new Users;
-        $page = Param::get('page_next','create');
+        $page = Param::get('page_next','register');
 
         switch ($page) {
-            case 'create':
+            case 'register':
                 break;
-            case 'create_end':
+            case 'register_end':
                 $user->username = clean(Param::get('username'));
                 $user->password = clean(Param::get('password'));
 
                 try {
                     $user->save();
                 } catch (ValidationException $e) {
-                    $page = 'create';
+                    $page = 'register';
                 }
                 break;
             default:
@@ -30,6 +40,10 @@ class UsersController extends AppController
 
     public function login()
     {
+        if(isset($_SESSION['login']) && $_SESSION['login'] === true) {
+            redirect(url('/'));
+        }
+
         $result = "";
         $page = Param::get('page_next','login');
 
@@ -43,7 +57,6 @@ class UsersController extends AppController
             case 'login_end':
                 try{
                     if($user->isExisting()) {
-                        session_start();
                         $_SESSION['login'] = true;
                         $_SESSION['user'] = $user->username;
                     } else {
@@ -59,5 +72,11 @@ class UsersController extends AppController
         }
         $this->set(get_defined_vars());
         $this->render($page);
+    }
+
+    public function logout()
+    {
+        session_destroy();
+        redirect(url('users/login'));
     }
 }

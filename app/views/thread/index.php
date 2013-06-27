@@ -1,6 +1,8 @@
 <h1>
     All threads
-    <a class="btn btn-primary pull-right" href="<?php eh(url('thread/create')) ?>">Create</a>
+    <a class="btn btn-primary pull-right" href="<?php eh(url('thread/create')) ?>">
+        New Thread
+    </a>
 </h1>
 <ul>
     <?php foreach($threads as $v): ?>

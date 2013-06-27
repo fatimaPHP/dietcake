@@ -35,11 +35,10 @@ class Users extends AppModel
 
     public function isExisting()
     {
+        unset($this->validation['username']['unique']);
         $this->validate();
 
-        if(!empty($user->validation_errors['username']['length']) ||
-                !empty($user->validation_errors['password']['length'])
-        ) {
+        if($this->hasError()) {
             throw new ValidationException('invalid username or password');
         }
 

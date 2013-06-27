@@ -1,21 +1,46 @@
 <?php
 
+/*
+ * Prevent XSS attack
+ */
 function eh($string)
 {
     if (!isset($string)) return;
     echo htmlspecialchars($string, ENT_QUOTES);
 }
 
-function readable_text($s)
+/*
+ *  Preserve line breaks
+ */
+function readable_text($string)
 {
-    $s = htmlspecialchars($s,ENT_QUOTES);
-    $s = nl2br($s);
-    return $s;
+    $string = htmlspecialchars($string,ENT_QUOTES);
+    $string = nl2br($string);
+    return $string;
 }
 
-function clean($s)
+/*
+ * Remove whitespaces and html tags
+ */
+function clean($string)
 {
-    $s = trim($s);
-    $s = strip_tags($s);
-    return $s;
+    $string = trim($string);
+    $string = strip_tags($string);
+    return $string;
+}
+
+/*
+ * Redirect to specified URL
+ */
+function redirect($url)
+{
+    header("Location: {$url}");
+}
+
+/*
+ * Return the value of the session specified
+ */
+function session($key_name)
+{
+    return (isset($_SESSION[$key_name])) ? htmlspecialchars($_SESSION[$key_name]) : '';
 }
